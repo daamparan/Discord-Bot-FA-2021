@@ -6,8 +6,9 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN') #Authentication token for the bot 
 GUILD = os.getenv('DISCORD_GUILD') #Authentication used for the server | server name
 
-intents = discord.Intents.all()
-client = discord.Client(intents=intents)
+intents = discord.Intents.all() #enable intents
+intents.members = True
+client = discord.Client(intents=intents) #create with the intents
 
 @client.event
 async def on_ready(): #will track the connection event; once ran it is ready for further processing
@@ -18,7 +19,6 @@ async def on_ready(): #will track the connection event; once ran it is ready for
     print(f'{guild.name}(id: {guild.id})')
 
     members = '\n - '.join([member.name for member in guild.members])
-
     print(f'Guild Members:\n - {members}')
 
 
