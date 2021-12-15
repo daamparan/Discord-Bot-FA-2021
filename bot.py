@@ -1,14 +1,15 @@
 import os
-import discord # access all API calls for discord 
+import discord # access all API calls for discord
+from discord.ext import commands 
 from dotenv import load_dotenv
 
 load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN') #Authentication token for the bot 
-GUILD = os.getenv('DISCORD_GUILD') #Authentication used for the server | server name
+TOKEN = os.getenv('DISCORD_TOKEN')   #Authentication token for the bot 
+GUILD = os.getenv('DISCORD_GUILD')   #Authentication used for the server | server name
 
 intents = discord.Intents.all() #enable intents
 intents.members = True
-client = discord.Client(intents=intents) #create with the intents
+client = discord.ext.commands.Bot(command_prefix='!')   #create with the intents
 
 @client.event
 async def on_ready():  # will track the connection event; once ran it is ready for further processing
@@ -20,6 +21,21 @@ async def on_ready():  # will track the connection event; once ran it is ready f
 
     members = '\n - '.join([member.name for member in guild.members])
     print(f'Guild Members:\n - {members}')
+    
 
 
+@client.command(name='join')
+async def join(ctx):
+    connected = ctx.author.voice
+    if not connected:
+        await ctx.send('You need to connect to a voice channel to use this command')
+        return
+    voice_channel = await connected.channel.connect()
+
+@client.command(name='leave')
+async def leave(ctx):
+    server = ctx.message.guild.voice_client
+    await server.disconnect()
+
+        
 client.run(TOKEN)
