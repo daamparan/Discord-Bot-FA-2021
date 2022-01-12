@@ -2,11 +2,10 @@ import os
 import discord # access all API calls for discord
 from discord.ext import commands 
 from dotenv import load_dotenv
-import YTDLSource
 import youtube_dl
+from youtube_dl.YoutubeDL import YoutubeDL
 
 
-YTDLSource = YTDLSource()
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')   #Authentication token for the bot 
 GUILD = os.getenv('DISCORD_GUILD')   #Authentication used for the server | server name
@@ -42,19 +41,20 @@ async def leave(ctx):
     await server.disconnect()
     
 @client.command(name='play', help='Play command Ex: !play [name]')
-async def play(ctx):
-    try:
-        server = ctx.message.guild  # find the server we are in 
-        voice_channel = server.voice_client  #attain the channel command called to 
-        
-        async with ctx.typing():
-            filename = await YTDLSource.from_url(url, loop=bot.loop)
-            voice_channel.play(discord.FFmpegAudio(executable='ffmpeg.exe', source=filename))
-        await ctx.send('**Now Playing:** {}'.format(filename))
+async def play(ctx, url):
+    voice_channel = ctx.voice_client
+    voice_channel.stop() # Stop
     
-    except:
-        await ctx.send('The Bot is not connected to a voice channel')
-        raise
+    FFFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
+    YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': True}
+    
+    with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
+        info = ydl.extract_info(url, download=False)
+        url_2 = info['format'][0]['url']
+        source = await discord.FFmpegOpusAudio.from_probe(url_2, **FFFMPEG_OPTIONS)
+        voice_channel.play(source)
+        await ctx.send('**Now playing:** {}'.format(source))
+        
         
 @client.command(name='pause', help='Pauses content being played')
 async def pause(ctx):
