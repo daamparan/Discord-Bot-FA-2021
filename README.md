@@ -22,6 +22,7 @@ FFmpeg will directly output the audio via the bot and be heard within your chann
 installion can be performed in one of two ways. 
 Using the commad: 'pip install ffmpeg' or going to ffmpeg and downloading its latest compatible
 version with your system. 
+
 Link: 'https://ffmpeg.org/' 
 
 
