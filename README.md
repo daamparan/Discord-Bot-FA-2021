@@ -27,23 +27,25 @@ Link: 'https://ffmpeg.org/'
 
 ## Commands and Usage
 Commands are broken down into two sepereate cog python files; cog being a collection of commands. 
-* music_Cog \n
+* music_Cog.py
+
 Holds all commands related to the music portion of the bot. For example, the play command: '!play [name]'
 
-** !play
+** !play **
 Please enter the arguements as a link or the name of the audio you would like to listen to.
 Keep in mind, the bot will select the first item matching the query you give, thus try to include 
 as much detail of the audio, for example artist name and song name. 
 
-** !list
+** !list **
 List command requires no arguements and allows you to list all the items that are pending to be played 
 within the Queue. If nothing is pending the message will be given as such. 
 
-** !skip
+** !skip **
 Skip commands requires no arguements and allows us to skip the current song and play the next song, if any. If nothing is present it will simply
 stop the audio playback. 
 
-* general_Cog
+* general_Cog.py
+
 Holds all genereal commands, such as joining a voice channel and leaving.
 
 **!join
