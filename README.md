@@ -27,7 +27,7 @@ Link: 'https://ffmpeg.org/'
 
 ## Commands and Usage
 Commands are broken down into two sepereate cog python files; cog being a collection of commands. 
-* music_Cog
+* music_Cog \n
 Holds all commands related to the music portion of the bot. For example, the play command: '!play [name]'
 
 ** !play
@@ -44,7 +44,6 @@ Skip commands requires no arguements and allows us to skip the current song and 
 stop the audio playback. 
 
 * general_Cog
-### General Commands
 Holds all genereal commands, such as joining a voice channel and leaving.
 
 **!join
