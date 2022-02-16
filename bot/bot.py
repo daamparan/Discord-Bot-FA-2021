@@ -11,7 +11,7 @@ GUILD = os.getenv('DISCORD_GUILD')   #Authentication used for the server | serve
 intents = discord.Intents.all() #enable intents
 intents.members = True
 
-Bot = discord.ext.commands.Bot(command_prefix='!')   #create with the intents
+Bot = discord.ext.commands.Bot(command_prefix='@')   #create with the intents
 Bot.add_cog(music_cog(Bot))
 Bot.add_cog(general_cog(Bot))
 
